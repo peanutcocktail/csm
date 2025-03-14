@@ -5,7 +5,11 @@ import torch
 import torchaudio
 from huggingface_hub import hf_hub_download
 from models import Model, ModelArgs
-from moshi.models import loaders
+#from moshi.models import loaders
+if torch.backends.mps.is_available():
+    from moshi_mlx.models import loaders
+elif torch.cuda.is_available():
+    from moshi.models import loaders
 from tokenizers.processors import TemplateProcessing
 from transformers import AutoTokenizer
 from watermarking import CSM_1B_GH_WATERMARK, load_watermarker, watermark
